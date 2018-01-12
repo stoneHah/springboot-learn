@@ -32,7 +32,8 @@ public class UserServiceImpl implements UserService{
         return user;
     }
 
-    private List<Car> getCars(int userId){
+    @Cacheable(cacheNames = "cars")
+    public List<Car> getCars(int userId){
         logger.info("get cars invoke");
         return Collections.singletonList(new Car("suvj","bmw"));
     }
