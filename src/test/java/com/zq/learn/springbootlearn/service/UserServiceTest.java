@@ -22,6 +22,6 @@ public class UserServiceTest {
     @Test
     public void testGetUser(){
         userService.getUser(1);
-        userService.getUser(1);
+        userService.getCars(1);
     }
 }

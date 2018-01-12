@@ -1,6 +1,9 @@
 package com.zq.learn.springbootlearn.service;
 
+import com.zq.learn.springbootlearn.model.Car;
 import com.zq.learn.springbootlearn.model.User;
+
+import java.util.List;
 
 /**
  * ${DESCRIPTION}
@@ -10,4 +13,6 @@ import com.zq.learn.springbootlearn.model.User;
  **/
 public interface UserService {
     User getUser(int userId);
+
+    List<Car> getCars(int userId);
 }

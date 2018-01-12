@@ -2,6 +2,7 @@ package com.zq.learn.springbootlearn.service.impl;
 
 import com.zq.learn.springbootlearn.model.Car;
 import com.zq.learn.springbootlearn.model.User;
+import com.zq.learn.springbootlearn.proxy.BeanSelfProxyAware;
 import com.zq.learn.springbootlearn.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +19,16 @@ import java.util.List;
  * @create 2018/1/12
  **/
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService,BeanSelfProxyAware{
 
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+
+    private UserService userService = null;
+
+    @Override
+    public void setSelfProxy(Object object) {
+        userService = (UserService) object;
+    }
 
     @Override
     @Cacheable(cacheNames = "users")
@@ -28,10 +36,11 @@ public class UserServiceImpl implements UserService{
         logger.info("get user invoke");
         User user = new User(userId, "zq");
 
-        List<Car> cars = getCars(userId);
+        List<Car> cars = userService.getCars(userId);
         return user;
     }
 
+    @Override
     @Cacheable(cacheNames = "cars")
     public List<Car> getCars(int userId){
         logger.info("get cars invoke");
